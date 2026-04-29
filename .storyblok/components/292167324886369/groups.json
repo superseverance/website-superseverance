@@ -1,0 +1,23 @@
+[
+  {
+    "name": "bloks",
+    "id": 171124263963922,
+    "uuid": "3f70b9b0-bc6f-4f40-8352-b410eaf15f90",
+    "parent_id": null,
+    "parent_uuid": null
+  },
+  {
+    "name": "elements",
+    "id": 171135457557797,
+    "uuid": "d3e6ce5c-f7fa-48ae-a53d-d5ae11a1325a",
+    "parent_id": null,
+    "parent_uuid": null
+  },
+  {
+    "name": "stories",
+    "id": 171124431887635,
+    "uuid": "eb555fb8-9dd2-42ba-b505-2513f4c24f3f",
+    "parent_id": null,
+    "parent_uuid": null
+  }
+]
