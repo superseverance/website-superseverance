@@ -1,0 +1,50 @@
+{
+  "name": "website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clear": "rm -rf ./next",
+    "dev": "next dev --turbopack",
+    "proxy": "local-ssl-proxy --source 3001 --target 3000 --cert localhost.pem --key localhost-key.pem",
+    "build": "next build --turbopack",
+    "debug": "next build --debug-prerender",
+    "start": "next start",
+    "lint": "eslint",
+    "pull": "storyblok components pull --space 288126534695537",
+    "push": "storyblok components push --space 288126534695537",
+    "types": "storyblok types generate --space 288126534695537"
+  },
+  "dependencies": {
+    "@heroui/react": "^2.8.5",
+    "@internationalized/date": "^3.10.0",
+    "@react-aria/i18n": "^3.12.14",
+    "@storyblok/react": "^5.4.19",
+    "framer-motion": "^12.23.24",
+    "markdown-to-jsx": "^9.3.3",
+    "markdown-to-txt": "^2.0.1",
+    "next": "15.5.9",
+    "pigeon-maps": "^0.22.1",
+    "postcss": "^8.5.6",
+    "react": "19.2.0",
+    "react-color": "^2.19.3",
+    "react-dom": "19.2.0",
+    "react-json-pretty": "^2.2.0",
+    "storyblok-generate-ts": "^2.2.0",
+    "swiper": "^12.0.3",
+    "tailwind-variants": "^3.1.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-color": "^3.0.13",
+    "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.9",
+    "tailwindcss": "^4.1.16",
+    "typescript": "^5.9.3"
+  }
+}

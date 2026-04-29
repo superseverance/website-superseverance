@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  /* Swiper */
+  --swiper-navigation-size: 2rem;
+  --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-sides-offset: 0.5rem;
+  --swiper-theme-color: #ffffff;
+  --swiper-pagination-bullet-size: 0.75rem;
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+}
+
+@theme {
+  --breakpoint-xs: 20rem;
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 40rem;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --leading-slim: 0.875;
+  --h-inherit: inherit;
+  --w-inherit: inherit;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+}
+
+main {
+  overflow-x: hidden;
+}
+
+.hides-crollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
