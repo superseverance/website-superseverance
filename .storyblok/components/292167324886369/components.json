@@ -373,9 +373,34 @@
     "display_name": null,
     "description": "",
     "created_at": "2026-04-29T13:00:29.958Z",
-    "updated_at": "2026-04-29T13:01:08.365Z",
+    "updated_at": "2026-04-29T15:10:35.392Z",
     "id": 171122810714031,
-    "schema": {},
+    "schema": {
+      "logo": {
+        "type": "asset",
+        "pos": 0,
+        "filetypes": [
+          "images"
+        ],
+        "id": "zixcPv1BTZO2BvlpG5r_Ug"
+      },
+      "body": {
+        "type": "bloks",
+        "pos": 1,
+        "restrict_type": "",
+        "restrict_components": true,
+        "component_whitelist": [
+          "text"
+        ],
+        "component_denylist": [],
+        "id": "xVuAEOU1TC-sE-sFh5ECYA"
+      },
+      "copyright": {
+        "type": "markdown",
+        "pos": 2,
+        "id": "sJ-SzfwXRIKMUuLBFFKvjw"
+      }
+    },
     "image": null,
     "preview_field": null,
     "is_root": true,
@@ -429,75 +454,32 @@
     "name": "grid",
     "display_name": null,
     "description": "",
-    "created_at": "2026-04-29T13:03:20.392Z",
-    "updated_at": "2026-04-29T14:08:11.411Z",
-    "id": 171123508811700,
+    "created_at": "2026-04-29T15:07:51.338Z",
+    "updated_at": "2026-04-29T15:09:11.347Z",
+    "id": 171154109811245,
     "schema": {
       "heading": {
         "type": "markdown",
         "pos": 0,
-        "id": "xxK6i60MSOK9qympaEPGjA"
+        "id": "G-pJoY4tSG6ILrTvuGz_Tw"
       },
-      "body": {
-        "type": "bloks",
+      "story": {
+        "type": "option",
         "pos": 1,
-        "id": "IG9bkK-fSam55f5lFuZ0cg"
-      },
-      "justify": {
-        "type": "option",
-        "pos": 2,
         "use_uuid": true,
         "options": [
           {
-            "_uid": "164a9d20-2420-4e6f-a2d8-bb06f8eac7bd",
-            "name": "center",
-            "value": "center"
+            "_uid": "f3c7533d-40ed-406a-96de-9b1ab54d0d17",
+            "name": "events",
+            "value": "events"
           },
           {
-            "_uid": "58f54991-df42-431a-9a2a-150817a8d065",
-            "value": "right",
-            "name": "right"
-          },
-          {
-            "_uid": "58dc7a98-7391-42e0-a59a-74836aeea20c",
-            "value": "spaced",
-            "name": "spaced"
+            "_uid": "6ac642ec-6d1c-4e6f-8cac-73d0e1cb80bb",
+            "value": "news",
+            "name": "news"
           }
         ],
-        "id": "vijY0v1LQP-QqL8eyNRGeg"
-      },
-      "theme": {
-        "type": "option",
-        "pos": 4,
-        "use_uuid": true,
-        "options": [
-          {
-            "_uid": "469d6d31-5a54-4e35-a60b-1d5c27e92077",
-            "name": "primary",
-            "value": "primary"
-          },
-          {
-            "_uid": "7c22bbea-10bb-4d2c-8b48-a43ce23c377a",
-            "value": "secondary",
-            "name": "secondary"
-          },
-          {
-            "_uid": "d35ab784-90ed-475d-a080-6cfcba18cedc",
-            "value": "primary-dark",
-            "name": "primary dark"
-          },
-          {
-            "_uid": "6fc76d48-f390-42eb-ad6d-9228799651ac",
-            "value": "secondary-dark",
-            "name": "secondary dark"
-          },
-          {
-            "_uid": "4ee8213a-b5c1-438e-9d97-f18720ef69a0",
-            "value": "dark",
-            "name": "dark"
-          }
-        ],
-        "id": "7EUlL05rSeis5u-2Trwzrg"
+        "id": "EV2nOG1oRV29D-0yTzgPug"
       }
     },
     "image": null,
@@ -795,6 +777,97 @@
     "preset_id": null,
     "real_name": "page",
     "component_group_uuid": "eb555fb8-9dd2-42ba-b505-2513f4c24f3f",
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
+    "name": "section",
+    "display_name": null,
+    "description": "",
+    "created_at": "2026-04-29T13:03:20.392Z",
+    "updated_at": "2026-04-29T15:07:42.216Z",
+    "id": 171123508811700,
+    "schema": {
+      "heading": {
+        "type": "markdown",
+        "pos": 0,
+        "id": "xxK6i60MSOK9qympaEPGjA"
+      },
+      "body": {
+        "type": "bloks",
+        "pos": 1,
+        "id": "IG9bkK-fSam55f5lFuZ0cg"
+      },
+      "justify": {
+        "type": "option",
+        "pos": 2,
+        "use_uuid": true,
+        "options": [
+          {
+            "_uid": "164a9d20-2420-4e6f-a2d8-bb06f8eac7bd",
+            "name": "center",
+            "value": "center"
+          },
+          {
+            "_uid": "58f54991-df42-431a-9a2a-150817a8d065",
+            "value": "right",
+            "name": "right"
+          },
+          {
+            "_uid": "58dc7a98-7391-42e0-a59a-74836aeea20c",
+            "value": "spaced",
+            "name": "spaced"
+          }
+        ],
+        "id": "vijY0v1LQP-QqL8eyNRGeg"
+      },
+      "theme": {
+        "type": "option",
+        "pos": 4,
+        "use_uuid": true,
+        "options": [
+          {
+            "_uid": "469d6d31-5a54-4e35-a60b-1d5c27e92077",
+            "name": "primary",
+            "value": "primary"
+          },
+          {
+            "_uid": "7c22bbea-10bb-4d2c-8b48-a43ce23c377a",
+            "value": "secondary",
+            "name": "secondary"
+          },
+          {
+            "_uid": "d35ab784-90ed-475d-a080-6cfcba18cedc",
+            "value": "primary-dark",
+            "name": "primary dark"
+          },
+          {
+            "_uid": "6fc76d48-f390-42eb-ad6d-9228799651ac",
+            "value": "secondary-dark",
+            "name": "secondary dark"
+          },
+          {
+            "_uid": "4ee8213a-b5c1-438e-9d97-f18720ef69a0",
+            "value": "dark",
+            "name": "dark"
+          }
+        ],
+        "id": "7EUlL05rSeis5u-2Trwzrg"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": false,
+    "preview_tmpl": null,
+    "is_nestable": true,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "section",
+    "component_group_uuid": "3f70b9b0-bc6f-4f40-8352-b410eaf15f90",
     "color": null,
     "icon": null,
     "internal_tags_list": [],

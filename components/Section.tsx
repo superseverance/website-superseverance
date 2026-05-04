@@ -1,4 +1,4 @@
-import type { Footer as FooterType } from "@/sbComponentType"
+import type { Section as SectionType } from "@/sbComponentType"
 import Markdown from "markdown-to-jsx/react"
 import { tv } from "tailwind-variants"
 
@@ -8,8 +8,8 @@ import {
   StoryblokComponent
 } from "@storyblok/react"
 
-export interface FooterComponent {
-  blok: FooterType & SbBlokData
+export interface SectionComponent {
+  blok: SectionType & SbBlokData
 }
 
 const classes = tv({
@@ -17,17 +17,18 @@ const classes = tv({
   variants: {}
 })
 
-export function Footer({ blok }: FooterComponent) {
-  const { logo, body, copyright } = blok
+export function Section({ blok }: SectionComponent) {
+  const { heading, body, theme, justify } = blok
   const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       <div className="">
-        {logo && <div className="">{logo.filename}</div>}
-        {body?.map((item) => <StoryblokComponent blok={item} key={item._uid} />)}
+        <Markdown>
+          {heading}
+        </Markdown>
       </div>
       <div className="">
-        <Markdown>{copyright}</Markdown>
+        {body?.map((item) => <StoryblokComponent blok={item} key={item._uid} />)}
       </div>
     </div>
   )

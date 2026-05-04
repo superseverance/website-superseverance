@@ -54,6 +54,9 @@ export interface Event {
 }
 
 export interface Footer {
+  logo?: StoryblokAsset;
+  body?: Text[];
+  copyright?: string;
   component: "footer";
   _uid: string;
   [k: string]: unknown;
@@ -68,25 +71,7 @@ export interface Gallery {
 
 export interface Grid {
   heading?: string;
-  body?: (
-    | Album
-    | Alias
-    | Column
-    | Cover
-    | Event
-    | Footer
-    | Gallery
-    | Grid
-    | Header
-    | Image
-    | Link
-    | News
-    | Page
-    | Text
-    | Video
-  )[];
-  justify?: "" | "center" | "right" | "spaced";
-  theme?: "" | "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  story?: "" | "events" | "news";
   component: "grid";
   _uid: string;
   [k: string]: unknown;
@@ -108,6 +93,7 @@ export interface Header {
     | Link
     | News
     | Page
+    | Section
     | Text
     | Video
   )[];
@@ -136,7 +122,7 @@ export interface News {
   title?: string;
   description?: string;
   image?: StoryblokAsset;
-  body?: (Alias | Column | Cover | Footer | Grid | Header)[];
+  body?: (Alias | Column | Cover | Footer | Grid | Header | Section)[];
   component: "news";
   _uid: string;
   [k: string]: unknown;
@@ -149,8 +135,35 @@ export interface Page {
   meta?: unknown;
   header?: ISbStoryData<Header> | string;
   footer?: ISbStoryData<Footer> | string;
-  body?: (Alias | Column | Cover | Footer | Grid | Header)[];
+  body?: (Alias | Column | Cover | Footer | Grid | Header | Section)[];
   component: "page";
+  _uid: string;
+  [k: string]: unknown;
+}
+
+export interface Section {
+  heading?: string;
+  body?: (
+    | Album
+    | Alias
+    | Column
+    | Cover
+    | Event
+    | Footer
+    | Gallery
+    | Grid
+    | Header
+    | Image
+    | Link
+    | News
+    | Page
+    | Section
+    | Text
+    | Video
+  )[];
+  justify?: "" | "center" | "right" | "spaced";
+  theme?: "" | "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  component: "section";
   _uid: string;
   [k: string]: unknown;
 }
