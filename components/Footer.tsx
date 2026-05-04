@@ -19,7 +19,7 @@ const classes = tv({
 
 export function Footer({ blok }: FooterComponent) {
   const { logo, body, copyright } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       <div className="">

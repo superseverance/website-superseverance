@@ -19,17 +19,13 @@ export function Page({ blok, lists }: PageComponent) {
   const header = typeof blok.header === "string" ? null : blok.header?.content;
   const footer = typeof blok.footer === "string" ? null : blok.footer?.content;
 
-  // const { } = classes();
-
-  console.log(blok)
+  // const { } = classes()
 
   return (
     <ListsProvider lists={lists}>
       <Meta blok={blok} />
-      <div className="">Page</div>
-      {/* 
       {header && <StoryblokComponent blok={header} />}
-      <main className={main({ hasHeader: !!header })}>
+      <main className="">
         {blok.body?.map((child) => (
           <StoryblokComponent
             key={child._uid}
@@ -38,8 +34,7 @@ export function Page({ blok, lists }: PageComponent) {
           />
         ))}
       </main>
-      {footer && <StoryblokComponent blok={footer} />} 
-*/}
+      {footer && <StoryblokComponent blok={footer} />}
     </ListsProvider>
   );
 }

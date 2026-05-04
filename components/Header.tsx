@@ -19,7 +19,7 @@ const classes = tv({
 
 export function Header({ blok }: HeaderComponent) {
   const { logo, menu } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       <div className="">

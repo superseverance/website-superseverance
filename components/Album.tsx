@@ -19,7 +19,7 @@ const classes = tv({
 
 export function Album({ blok }: AlbumComponent) {
   const { title, description, image, tracks, link } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       {title && <h4 className="">{title}</h4>}

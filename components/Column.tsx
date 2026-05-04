@@ -18,7 +18,7 @@ const classes = tv({
 
 export function Column({ blok }: ColumnComponent) {
   const { body } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       {body?.map((item) => <StoryblokComponent blok={item} key={item._uid} />)}

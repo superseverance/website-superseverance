@@ -7,6 +7,8 @@ export type ListsProps = {
     events?: ISbStoryData<Event>[] | null;
 };
 
+export type ListKey = keyof ListsProps; // "news" | "events"
+
 const ListsContext = createContext<ListsProps | undefined>(undefined);
 
 export function ListsProvider({

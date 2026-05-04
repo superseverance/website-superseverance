@@ -18,7 +18,7 @@ const classes = tv({
 
 export function Text({ blok }: TextComponent) {
     const { content } = blok
-    const { } = classes()
+    // const { } = classes()
 
     return (
         <div {...storyblokEditable(blok)}>

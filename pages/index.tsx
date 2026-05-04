@@ -69,7 +69,7 @@ export const getStaticProps = async ({ draftMode }: GetStaticPropsContext) => {
 
   const _events = await storyblokApi.getStories({
     version,
-    content_type: "post",
+    content_type: "event",
     sort_by: "created_at:desc",
   });
 

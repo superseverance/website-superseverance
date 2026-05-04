@@ -17,7 +17,7 @@ const classes = tv({
 
 export function Gallery({ blok }: GalleryComponent) {
   const { sources } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       {sources?.map((item) => <div className="" key={item.id}>{item.filename}</div>)}

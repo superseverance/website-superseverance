@@ -17,7 +17,7 @@ const classes = tv({
 
 export function Link({ blok }: LinkComponent) {
   const { label, href } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       {label} - {href?.cached_url || href?.url}

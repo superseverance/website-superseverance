@@ -15,7 +15,7 @@ export interface Album {
 
 export interface Alias {
   heading?: string;
-  story?: "" | "article" | "news" | "album";
+  story?: "article" | "news" | "album";
   link?: Exclude<StoryblokMultilink, {linktype?: "email"} | {linktype?: "asset"}>;
   theme?: "" | "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
   component: "alias";
@@ -79,24 +79,7 @@ export interface Grid {
 
 export interface Header {
   logo?: StoryblokAsset;
-  menu?: (
-    | Album
-    | Alias
-    | Column
-    | Cover
-    | Event
-    | Footer
-    | Gallery
-    | Grid
-    | Header
-    | Image
-    | Link
-    | News
-    | Page
-    | Section
-    | Text
-    | Video
-  )[];
+  menu?: Link[];
   component: "header";
   _uid: string;
   [k: string]: unknown;

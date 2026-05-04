@@ -8,33 +8,21 @@ export interface AliasProps {
   blok: AliasType & SbBlokData
 }
 
+const classes = tv({
+  slots: {},
+  variants: {}
+})
+
 export function Alias({ blok }: AliasProps) {
   const { heading, link, theme, story } = blok
 
-  const { base } = classes({
-    theme
-  })
+  // const { } = classes()
 
   return (
-    <div {...storyblokEditable(blok)} className={base()}>
+    <div {...storyblokEditable(blok)} className="">
       {heading && <Markdown>{heading}</Markdown>}
       {story && <span>{story}</span>}
       {link && <a href={link.url}>{link.cached_url}</a>}
     </div>
   )
 }
-
-const classes = tv({
-  slots: {
-    base: "p-2"
-  },
-  variants: {
-    theme: {
-      primary: "text-blue-600",
-      secondary: "text-purple-600",
-      "primary-dark": "text-blue-300",
-      "secondary-dark": "text-purple-300",
-      dark: "text-white"
-    }
-  }
-})

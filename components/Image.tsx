@@ -17,7 +17,7 @@ const classes = tv({
 
 export function Image({ blok }: ImageComponent) {
   const { source } = blok
-  const { } = classes()
+  // const { } = classes()
 
   return (
     <div {...storyblokEditable(blok)}>

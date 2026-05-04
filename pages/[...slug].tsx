@@ -27,6 +27,7 @@ export default function Slug({ story, lists, draft }: LayoutComponent) {
 
 export const getStaticProps = async ({ params, draftMode }: GetStaticPropsContext) => {
   const version = process.env.NODE_ENV === "development" ? "draft" : !!draftMode ? "draft" : "published"
+  console.log(version)
 
   const slug = Array.isArray(params?.slug) ? params.slug.join("/") : "home";
   const storyblokApi = getStoryblokApi();
@@ -45,7 +46,7 @@ export const getStaticProps = async ({ params, draftMode }: GetStaticPropsContex
 
   const _news = await storyblokApi.getStories({
     version,
-    content_type: "project",
+    content_type: "news",
     sort_by: "created_at:desc",
   });
 
@@ -53,7 +54,7 @@ export const getStaticProps = async ({ params, draftMode }: GetStaticPropsContex
 
   const _events = await storyblokApi.getStories({
     version,
-    content_type: "post",
+    content_type: "event",
     sort_by: "created_at:desc",
   });
 

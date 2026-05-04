@@ -1,11 +1,12 @@
 import type { Event as EventType } from "@/sbComponentType";
 import { Meta } from "@/components/Meta";
-import { ListsProvider, ListsProps } from "@/components/Lists"
+import { StoryblokComponent } from "@storyblok/react";
+import { Fragment } from "react";
 import { tv } from "tailwind-variants";
+import { desc } from "framer-motion/client";
 
 export interface EventComponent {
   blok: EventType;
-  lists: ListsProps;
 }
 
 const classes = tv({
@@ -14,17 +15,17 @@ const classes = tv({
 })
 
 
-export function Event({ blok, lists }: EventComponent) {
+export function Event({ blok }: EventComponent) {
+  const { body, title, description } = blok
   // const { } = classes();
 
-  console.log(blok)
-
   return (
-    <ListsProvider lists={lists}>
+    <Fragment>
       <Meta blok={blok} />
-      <div className="">
-        Event
-      </div>
-    </ListsProvider>
-  );
+      <main className="">
+        {title && <h1 className="">{title}</h1>}
+        {description && <p className="">{description}</p>}
+      </main>
+    </Fragment>
+  )
 }

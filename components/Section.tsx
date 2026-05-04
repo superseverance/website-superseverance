@@ -19,7 +19,7 @@ const classes = tv({
 
 export function Section({ blok }: SectionComponent) {
   const { heading, body, theme, justify } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>
       <div className="">

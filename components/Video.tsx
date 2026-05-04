@@ -17,7 +17,7 @@ const classes = tv({
 
 export function Video({ blok }: VideoComponent) {
   const { youtube } = blok
-  const { } = classes()
+  // const { } = classes()
   return (
     <div className="" {...storyblokEditable(blok)}>{youtube}</div>
   )
