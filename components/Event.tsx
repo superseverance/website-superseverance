@@ -1,6 +1,6 @@
 import type { Event as EventType } from "@/sbComponentType";
 import { Meta } from "@/components/Meta";
-import { ListsProvider, ListsProps } from "@/libs/sbLists"
+import { ListsProvider, ListsProps } from "@/components/Lists"
 import { tv } from "tailwind-variants";
 
 export interface EventComponent {
@@ -15,12 +15,13 @@ const classes = tv({
 
 
 export function Event({ blok, lists }: EventComponent) {
-  const { } = classes();
+  // const { } = classes();
+
+  console.log(blok)
 
   return (
     <ListsProvider lists={lists}>
       <Meta blok={blok} />
-
       <div className="">
         Event
       </div>

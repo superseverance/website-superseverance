@@ -1,6 +1,6 @@
 import type { News as NewsType } from "@/sbComponentType";
 import { Meta } from "@/components/Meta";
-import { ListsProvider, ListsProps } from "@/libs/sbLists"
+import { ListsProvider, ListsProps } from "@/components/Lists"
 import { tv } from "tailwind-variants";
 
 export interface NewsComponent {
@@ -15,18 +15,15 @@ const classes = tv({
 
 
 export function News({ blok, lists }: NewsComponent) {
-  const { } = classes();
+  // const { } = classes();
+
+  console.log(blok)
 
   return (
     <ListsProvider lists={lists}>
       <Meta blok={blok} />
-
       <div className="">
-        {blok.image && <div className="" />}
-
-        <div className="">
-          News
-        </div>
+        News
       </div>
     </ListsProvider>
   );

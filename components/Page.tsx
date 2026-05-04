@@ -1,7 +1,7 @@
 import type { Page as PageType } from "@/sbComponentType";
 import { Meta } from "@/components/Meta";
 import { StoryblokComponent } from "@storyblok/react";
-import { ListsProvider, ListsProps } from "@/libs/sbLists"
+import { ListsProvider, ListsProps } from "@/components/Lists"
 import { tv } from "tailwind-variants";
 
 
@@ -10,17 +10,24 @@ export interface PageComponent {
   lists: ListsProps;
 }
 
+const classes = tv({
+  slots: {},
+  variants: {},
+});
+
 export function Page({ blok, lists }: PageComponent) {
   const header = typeof blok.header === "string" ? null : blok.header?.content;
   const footer = typeof blok.footer === "string" ? null : blok.footer?.content;
 
-  const { main } = classes();
+  // const { } = classes();
+
+  console.log(blok)
 
   return (
     <ListsProvider lists={lists}>
+      <Meta blok={blok} />
       <div className="">Page</div>
       {/* 
-      <Meta blok={blok} />
       {header && <StoryblokComponent blok={header} />}
       <main className={main({ hasHeader: !!header })}>
         {blok.body?.map((child) => (
@@ -36,15 +43,3 @@ export function Page({ blok, lists }: PageComponent) {
     </ListsProvider>
   );
 }
-
-const classes = tv({
-  slots: {
-    main: "",
-  },
-  variants: {
-    hasHeader: {
-      true: "",
-      false: "",
-    },
-  },
-});

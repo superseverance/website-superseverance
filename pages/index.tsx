@@ -1,19 +1,15 @@
-import type { Event, News } from "@/sbComponentType";
+import { Fragment } from "react";
 import type { GetStaticPropsContext } from "next";
+import { relations } from "@/config/storyblok";
+import { ExitPreview } from "@/libs/ExitPreview";
+import { ListsProps } from "@/components/Lists"
 import {
   getStoryblokApi,
   ISbStoryData,
   StoryblokComponent,
   useStoryblokState,
 } from "@storyblok/react";
-import { relations } from "@/config/storyblok";
-import { Fragment } from "react";
-import { ExitPreview } from "@/libs/ExitPreview";
 
-export type ListsProps = {
-  news?: ISbStoryData<News>[] | null;
-  events?: ISbStoryData<Event>[] | null;
-};
 
 export interface LayoutComponent {
   story: ISbStoryData | null;
