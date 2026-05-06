@@ -1,5 +1,8 @@
 import type { Image as ImageType } from "@/sbComponentType"
+import { Image as HeroImage } from "@heroui/react"
+import { default as NextImage } from "next/image";
 import { tv } from "tailwind-variants"
+import getResized from "@/libs/sbImage";
 
 import {
   SbBlokData,
@@ -8,25 +11,31 @@ import {
 
 export interface ImageComponent {
   blok: ImageType & SbBlokData
+  parent: string
 }
 
 const classes = tv({
-  slots: {},
+  slots: {
+    wrapper: "w-full h-full max-w-full!",
+    image: "h-full min-h-auto w-auto object-cover"
+  },
   variants: {},
 })
 
-export function Image({ blok }: ImageComponent) {
-  const { source } = blok
-  // const { } = classes()
+export function Image({ blok, parent }: ImageComponent) {
+  if (!blok?.source) return null
+  const { filename, focus, alt } = blok.source
+  const { wrapper, image } = classes()
 
   return (
-    <div {...storyblokEditable(blok)}>
-      {source && (
-        <img
-          src={source.filename || ""}
-          alt={source.alt || ""}
-        />
-      )}
-    </div>
+    <HeroImage
+      {...storyblokEditable(blok)}
+      src={getResized({ filename, focus })}
+      classNames={{ wrapper: wrapper(), img: image() }}
+      style={{ width: "100%" }}
+      as={NextImage}
+      alt={alt || ""}
+      fill
+    />
   )
 }

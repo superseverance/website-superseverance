@@ -24,14 +24,14 @@ const classes = tv({
 })
 
 export function Footer({ blok }: FooterComponent) {
-  const { logo, body, copyright } = blok
+  const { logo, body, copyright ,component } = blok
   const { footer, columns, column, container } = classes()
   const overrides = Typography()
   return (
     <div className={footer()} {...storyblokEditable(blok)}>
       <div className={columns()}>
         {logo && <div className={column()}>{logo.filename}</div>}
-        {body?.map((item) => <StoryblokComponent blok={item} key={item._uid} />)}
+        {body?.map((item) => <StoryblokComponent parent={component} blok={item} key={item._uid} />)}
       </div>
       <div className={container()}>
         <Markdown options={{ wrapper: null, overrides }}>{copyright}</Markdown>

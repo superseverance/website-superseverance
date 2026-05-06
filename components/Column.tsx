@@ -9,19 +9,19 @@ import {
 
 export interface ColumnComponent {
   blok: ColumnType & SbBlokData
+  parent: string
 }
 
 const classes = tv({
-  slots: {},
+  base: "",
   variants: {}
 })
 
-export function Column({ blok }: ColumnComponent) {
-  const { body } = blok
-  // const { } = classes()
+export function Column({ blok, parent }: ColumnComponent) {
+  const { body, component } = blok
   return (
-    <div className="" {...storyblokEditable(blok)}>
-      {body?.map((item) => <StoryblokComponent blok={item} key={item._uid} />)}
+    <div className={classes()} {...storyblokEditable(blok)}>
+      {body?.map((item) => <StoryblokComponent parent={component} blok={item} key={item._uid} />)}
     </div>
   )
 }

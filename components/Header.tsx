@@ -31,7 +31,7 @@ const classes = {
 }
 
 export function Header({ blok }: HeaderComponent) {
-  const { logo, menu } = blok
+  const { logo, menu, component } = blok
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -43,11 +43,11 @@ export function Header({ blok }: HeaderComponent) {
         {...storyblokEditable(blok)}
         onMenuOpenChange={setOpen}
       >
-        {logo && (
+        {logo?.filename && (
           <NextLink href="/">
             <NextImage
               className="h-12 w-auto max-h-8 md:max-h-10 lg:max-h-12 "
-              src={logo.filename || ""}
+              src={logo.filename}
               alt={logo.alt || ""}
               width={128}
               height={64}
@@ -58,7 +58,7 @@ export function Header({ blok }: HeaderComponent) {
         <HeroNavbarContent justify="end">
           {menu?.map((child) => (
             <HeroNavbarItem key={child._uid}>
-              <StoryblokComponent blok={child} parent={blok.component} />
+              <StoryblokComponent parent={component} blok={child} />
             </HeroNavbarItem>
           ))}
           <HeroNavbarMenuToggle
@@ -69,7 +69,7 @@ export function Header({ blok }: HeaderComponent) {
         <HeroNavbarMenu>
           {menu?.map((child) => (
             <HeroNavbarMenuItem key={child._uid}>
-              <StoryblokComponent blok={child} parent={blok.component} />
+              <StoryblokComponent parent={component} blok={child} />
             </HeroNavbarMenuItem>
           ))}
         </HeroNavbarMenu>

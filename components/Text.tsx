@@ -1,28 +1,32 @@
 import type { Text as TextType } from "@/sbComponentType"
 import { tv } from "tailwind-variants"
 import Markdown from "markdown-to-jsx/react"
+import { Typography } from "./Typography"
 
 import {
-    SbBlokData,
-    storyblokEditable,
+  SbBlokData,
+  storyblokEditable,
 } from "@storyblok/react"
 
 export interface TextComponent {
-    blok: TextType & SbBlokData
+  blok: TextType & SbBlokData
 }
 
 const classes = tv({
-    slots: {},
-    variants: {},
+  slots: {
+    text: "",
+  },
+  variants: {},
 })
 
 export function Text({ blok }: TextComponent) {
-    const { content } = blok
-    // const { } = classes()
+  const { content } = blok
+  const { text } = classes()
+  const overrides = Typography()
 
-    return (
-        <div {...storyblokEditable(blok)}>
-            <Markdown>{content}</Markdown>
-        </div>
-    )
+  return (
+    <div className={text()} {...storyblokEditable(blok)}>
+      <Markdown options={{ wrapper: null, overrides }}>{content}</Markdown>
+    </div>
+  )
 }

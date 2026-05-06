@@ -1,12 +1,12 @@
 import type { Page as PageType } from "@/sbComponentType";
 import { Meta } from "@/components/Meta";
-import { StoryblokComponent } from "@storyblok/react";
+import { SbBlokData, StoryblokComponent } from "@storyblok/react";
 import { ListsProvider, ListsProps } from "@/components/Lists"
 import { tv } from "tailwind-variants";
 
 
 export interface PageComponent {
-  blok: PageType;
+  blok: PageType & SbBlokData;
   lists: ListsProps;
 }
 
@@ -16,25 +16,24 @@ const classes = tv({
 });
 
 export function Page({ blok, lists }: PageComponent) {
-  const header = typeof blok.header === "string" ? null : blok.header?.content;
-  const footer = typeof blok.footer === "string" ? null : blok.footer?.content;
+  const { header, footer, body, component } = blok
 
   // const { } = classes()
 
   return (
     <ListsProvider lists={lists}>
       <Meta blok={blok} />
-      {header && <StoryblokComponent blok={header} />}
+      {typeof header === "string" ? null : <StoryblokComponent parent={component} blok={header?.content} />}
       <main className="">
-        {blok.body?.map((child) => (
+        {body?.map((child) => (
           <StoryblokComponent
             key={child._uid}
             blok={child}
-            parent={blok.component}
+            parent={component}
           />
         ))}
       </main>
-      {footer && <StoryblokComponent blok={footer} />}
+      {typeof footer === "string" ? null : <StoryblokComponent parent={component} blok={footer?.content} />}
     </ListsProvider>
-  );
+  )
 }

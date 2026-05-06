@@ -24,18 +24,18 @@ export interface Alias {
 }
 
 export interface Column {
-  body?: (Gallery | Image | Link | Text | Video)[];
+  body?: (Column | Gallery | Image | Link | Text | Video)[];
   component: "column";
   _uid: string;
   [k: string]: unknown;
 }
 
 export interface Cover {
-  body?: (Gallery | Image | Link | Text | Video)[];
-  background?: StoryblokAsset;
-  height?: "" | "full" | "huge" | "large";
-  align?: "" | "center" | "bottom";
-  theme?: "" | "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  body?: (Column | Gallery | Image | Link | Text | Video)[];
+  source?: StoryblokAsset;
+  height?: "full" | "huge" | "large";
+  align?: "top" | "bottom";
+  theme?: "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
   component: "cover";
   _uid: string;
   [k: string]: unknown;
@@ -96,6 +96,8 @@ export interface Image {
 export interface Link {
   label?: string;
   href?: Exclude<StoryblokMultilink, {linktype?: "email"} | {linktype?: "asset"}>;
+  asButton?: boolean;
+  theme?: "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
   component: "link";
   _uid: string;
   [k: string]: unknown;
@@ -105,7 +107,7 @@ export interface News {
   title?: string;
   description?: string;
   image?: StoryblokAsset;
-  body?: (Alias | Column | Cover | Footer | Grid | Header | Section)[];
+  body?: (Alias | Cover | Footer | Grid | Header | Section)[];
   component: "news";
   _uid: string;
   [k: string]: unknown;
@@ -118,7 +120,7 @@ export interface Page {
   meta?: unknown;
   header?: ISbStoryData<Header> | string;
   footer?: ISbStoryData<Footer> | string;
-  body?: (Alias | Column | Cover | Footer | Grid | Header | Section)[];
+  body?: (Alias | Cover | Footer | Grid | Header | Section)[];
   component: "page";
   _uid: string;
   [k: string]: unknown;
@@ -126,26 +128,9 @@ export interface Page {
 
 export interface Section {
   heading?: string;
-  body?: (
-    | Album
-    | Alias
-    | Column
-    | Cover
-    | Event
-    | Footer
-    | Gallery
-    | Grid
-    | Header
-    | Image
-    | Link
-    | News
-    | Page
-    | Section
-    | Text
-    | Video
-  )[];
-  justify?: "" | "center" | "right" | "spaced";
-  theme?: "" | "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  body?: (Column | Gallery | Image | Link | Text | Video)[];
+  justify?: "center" | "right" | "spaced";
+  theme?: "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
   component: "section";
   _uid: string;
   [k: string]: unknown;

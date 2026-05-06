@@ -19,7 +19,7 @@ export default function Slug({ story, lists, draft }: LayoutComponent) {
   if (!page) return null;
   return (
     <Fragment>
-      <StoryblokComponent blok={page?.content} lists={lists} story={page} />;
+      <StoryblokComponent blok={page?.content} lists={lists} story={page} />
       <ExitPreview enable={!!draft} slug={page.slug} />
     </Fragment>
   )
