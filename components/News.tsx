@@ -12,6 +12,7 @@ export interface NewsComponent {
 
 const classes = tv({
   slots: {
+    main: "min-h-screen",
     card: "p-2",
     wrapper: "",
     content: "",
@@ -21,8 +22,8 @@ const classes = tv({
 
 
 export function News({ blok, parent }: NewsComponent) {
-  const { title, description, image, link, body, component } = blok
-  const { card, wrapper, content } = classes()
+  const { header, footer, body, title, description, image, link, component } = blok
+  const { main, card, wrapper, content } = classes()
 
   if (!!parent) {
     return (
@@ -45,8 +46,8 @@ export function News({ blok, parent }: NewsComponent) {
   return (
     <Fragment>
       <Meta blok={blok} />
-      <main className="">
-        <h1 className="">{title}</h1>
+      {typeof header === "string" ? null : <StoryblokComponent parent={component} blok={header?.content} />}
+      <main className={main()}>
         {body?.map((child) => (
           <StoryblokComponent
             key={child._uid}
@@ -55,6 +56,7 @@ export function News({ blok, parent }: NewsComponent) {
           />
         ))}
       </main>
+      {typeof footer === "string" ? null : <StoryblokComponent parent={component} blok={footer?.content} />}
     </Fragment>
   )
 }

@@ -13,14 +13,20 @@ export interface ColumnComponent {
 }
 
 const classes = tv({
-  base: "",
-  variants: {}
+  base: "flex-none w-full md:flex-1 min-h-full self-stretch",
+  variants: {
+    width: {
+      full: "flex-none!",
+      half: "flex-none! md:w-1/2",
+      quarter: "flex-none! md:w-1/2 lg:w-1/4",
+    }
+  }
 })
 
 export function Column({ blok, parent }: ColumnComponent) {
-  const { body, component } = blok
+  const { body, width, component } = blok
   return (
-    <div className={classes()} {...storyblokEditable(blok)}>
+    <div className={classes({ width })} {...storyblokEditable(blok)}>
       {body?.map((item) => <StoryblokComponent parent={component} blok={item} key={item._uid} />)}
     </div>
   )

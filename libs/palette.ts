@@ -64,5 +64,7 @@ export function generatePalette(
     );
   }
 
+  // console.log(palette)
+
   return palette;
 }

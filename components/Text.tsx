@@ -12,13 +12,6 @@ export interface TextComponent {
   blok: TextType & SbBlokData
 }
 
-const classes = tv({
-  slots: {
-    text: "",
-  },
-  variants: {},
-})
-
 export function Text({ blok }: TextComponent) {
   const { content } = blok
   const { text } = classes()
@@ -30,3 +23,10 @@ export function Text({ blok }: TextComponent) {
     </div>
   )
 }
+
+const classes = tv({
+  slots: {
+    text: "",
+  },
+  variants: {},
+})

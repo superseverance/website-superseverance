@@ -1,41 +1,46 @@
-import type { Event as EventType } from "@/sbComponentType";
+import type { Alias as AliasType, Event as EventType } from "@/sbComponentType";
 import { Meta } from "@/components/Meta";
-import { SbBlokData, storyblokEditable } from "@storyblok/react";
+import { SbBlokData, storyblokEditable, StoryblokComponent } from "@storyblok/react";
 import { Fragment } from "react";
 import { tv } from "tailwind-variants";
 import { Image as HeroImage } from "@heroui/react"
+import { variants } from "@/config/variants";
 
 export interface EventComponent {
   blok: EventType & SbBlokData;
   parent?: string
+  theme?: AliasType["theme"]
 }
 
 const classes = tv({
   slots: {
-    card: "p-2",
-    wrapper: "",
-    content: "",
+    main: "min-h-screen",
+    column: "p-2 flex gap-2 ",
+    header: "text-2xl font-serif",
   },
-  variants: {}
+  variants: {
+    theme: { ...variants.themes }
+  }
 })
 
 
-export function Event({ blok, parent }: EventComponent) {
+export function Event({ blok, parent, theme }: EventComponent) {
   const { body, title, description, image, component } = blok
-  const { card, wrapper, content } = classes()
+  const { main, column, header } = classes()
 
   if (!!parent) {
     return (
-      <div className={card()} {...storyblokEditable(blok)}>
+      <div className={column({ theme })} {...storyblokEditable(blok)}>
         {image?.filename && (
           <HeroImage
-            classNames={{ wrapper: wrapper() }}
+            classNames={{ wrapper: "w-1/3" }}
             src={image.filename}
             alt={image.alt || ""}
+            radius="none"
           />
         )}
-        <div className={content()}>
-          <h4 className="">{title}</h4>
+        <div className="">
+          <h4 className={header({ theme })}>{title}</h4>
           <p className="">{description}</p>
         </div>
       </div>
@@ -45,10 +50,16 @@ export function Event({ blok, parent }: EventComponent) {
   return (
     <Fragment>
       <Meta blok={blok} />
-      <main className="">
-        {title && <h1 className="">{title}</h1>}
-        {description && <p className="">{description}</p>}
+      {typeof blok.header === "string" ? null : <StoryblokComponent parent={component} blok={blok.header?.content} />}
+      <main className={main()}>
+        {body?.map((child) => (
+          <StoryblokComponent
+            key={child._uid}
+            blok={child}
+            parent={component}
+          />
+        ))}
       </main>
-    </Fragment>
+      {typeof blok.footer === "string" ? null : <StoryblokComponent parent={component} blok={blok.footer?.content} />}    </Fragment>
   )
 }

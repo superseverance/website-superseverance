@@ -15,6 +15,7 @@ const Tags = [
   "ol",
   "li",
   "a",
+  "code",
   "img",
 ] as const;
 
@@ -44,6 +45,12 @@ export function Typography() {
         );
         return [tag, img];
       }
+      if (tag === "code") {
+        const code = ({ children }: { href: string; children: string }) => (
+          <i className={`icon-${children}`} />
+        );
+        return [tag, code]
+      }
 
       return [
         tag,
@@ -67,6 +74,7 @@ const classes = tv({
     ol: "",
     li: "",
     a: "text-bold ",
+    code: "",
     img: "",
   },
   variants: {}

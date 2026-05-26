@@ -3,7 +3,7 @@ import {
   SbBlokData,
   storyblokEditable,
 } from "@storyblok/react"
-import getResized from "@/libs/sbImage";
+import { getResizedImage, getAspectRatio, getSizesImage } from "@/libs/sbImage";
 import { tv } from "tailwind-variants"
 import { Image as HeroImage } from "@heroui/react"
 import { default as NextImage } from "next/image";
@@ -17,12 +17,18 @@ export interface GalleryComponent {
 
 const classes = tv({
   slots: {
-    gallery: "min-h-inherit",
-    slide: "min-h-inherit",
-    wrapper: "w-full min-h-inherit max-w-full!",
-    image: "h-full min-h-auto w-auto object-cover",
+    gallery: "w-full max-w-full!",        // ← no h-full
+    slide: "w-full",                       // ← no h-full
+    wrapper: "w-full max-w-full!",         // ← no h-full
+    image: "w-full h-full object-cover",
   },
-  variants: {}
+  variants: {
+    height: {
+      full: { gallery: "min-h-screen!" },
+      huge: { gallery: "min-h-[75vh]!" },
+      large: { gallery: "min-h-[50vh]!" }
+    }
+  }
 })
 
 const options: SwiperProps = {
@@ -32,19 +38,28 @@ const options: SwiperProps = {
 };
 
 export function Gallery({ blok, parent }: GalleryComponent) {
-  const { sources } = blok
+  const { sources, height } = blok
   const { gallery, slide, wrapper, image } = classes()
+  const aspectRatio = getAspectRatio({ filename: sources?.[0]?.filename || null })
+
   return (
-    <Swiper className={gallery()} wrapperClass="min-h-inherit" {...options} {...storyblokEditable(blok)}>
+    <Swiper
+      style={{ aspectRatio: aspectRatio ?? undefined }}
+      className={gallery({ height })}
+      wrapperClass="w-full"
+      {...options}
+      {...storyblokEditable(blok)}
+    >
       {sources?.map(({ id, filename, alt, focus }) =>
         <SwiperSlide className={slide()} key={id}>
           <HeroImage
             {...storyblokEditable(blok)}
-            src={getResized({ filename, focus })}
+            src={getResizedImage({ filename, focus })}
             classNames={{ wrapper: wrapper(), img: image() }}
             style={{ width: "100%" }}
             as={NextImage}
             alt={alt || ""}
+            radius="none"
             fill
           />
         </SwiperSlide>

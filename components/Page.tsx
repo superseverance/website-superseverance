@@ -11,20 +11,22 @@ export interface PageComponent {
 }
 
 const classes = tv({
-  slots: {},
+  slots: {
+    main: "min-h-screen",
+  },
   variants: {},
 });
 
 export function Page({ blok, lists }: PageComponent) {
   const { header, footer, body, component } = blok
 
-  // const { } = classes()
+  const { main } = classes()
 
   return (
     <ListsProvider lists={lists}>
       <Meta blok={blok} />
       {typeof header === "string" ? null : <StoryblokComponent parent={component} blok={header?.content} />}
-      <main className="">
+      <main className={main()}>
         {body?.map((child) => (
           <StoryblokComponent
             key={child._uid}

@@ -62,7 +62,7 @@ export const getStaticProps = async ({ draftMode }: GetStaticPropsContext) => {
   const _news = await storyblokApi.getStories({
     version,
     content_type: "news",
-    sort_by: "created_at:desc",
+    sort_by: "published_at:desc",
   });
 
   const news = _news.data ? _news.data.stories : null;
@@ -70,7 +70,7 @@ export const getStaticProps = async ({ draftMode }: GetStaticPropsContext) => {
   const _events = await storyblokApi.getStories({
     version,
     content_type: "event",
-    sort_by: "created_at:desc",
+    sort_by: "published_at:desc",
   });
 
   const events = _events.data ? _events.data.stories : null;

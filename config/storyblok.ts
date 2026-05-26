@@ -33,4 +33,8 @@ export const components = {
 export const relations = [
   "page.header",
   "page.footer",
+  "event.header",
+  "event.footer",
+  "news.header",
+  "news.footer",
 ];

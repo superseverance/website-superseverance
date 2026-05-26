@@ -15,9 +15,9 @@ export interface Album {
 
 export interface Alias {
   heading?: string;
-  story?: "article" | "news" | "album";
+  story?: "events" | "news" | "album";
   link?: Exclude<StoryblokMultilink, {linktype?: "email"} | {linktype?: "asset"}>;
-  theme?: "" | "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  theme?: "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
   component: "alias";
   _uid: string;
   [k: string]: unknown;
@@ -25,6 +25,7 @@ export interface Alias {
 
 export interface Column {
   body?: (Column | Gallery | Image | Link | Text | Video)[];
+  width?: "full" | "half" | "quarter";
   component: "column";
   _uid: string;
   [k: string]: unknown;
@@ -36,6 +37,7 @@ export interface Cover {
   height?: "full" | "huge" | "large";
   align?: "top" | "bottom";
   theme?: "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  effect?: "grunge";
   component: "cover";
   _uid: string;
   [k: string]: unknown;
@@ -48,6 +50,9 @@ export interface Event {
   date?: string;
   location?: string;
   ticket?: Exclude<StoryblokMultilink, {linktype?: "email"} | {linktype?: "asset"}>;
+  body?: (Alias | Cover | Footer | Grid | Header | Section)[];
+  header?: ISbStoryData<Header> | string;
+  footer?: ISbStoryData<Footer> | string;
   component: "event";
   _uid: string;
   [k: string]: unknown;
@@ -64,6 +69,7 @@ export interface Footer {
 
 export interface Gallery {
   sources?: StoryblokMultiasset;
+  height?: "full" | "huge" | "large";
   component: "gallery";
   _uid: string;
   [k: string]: unknown;
@@ -79,7 +85,7 @@ export interface Grid {
 
 export interface Header {
   logo?: StoryblokAsset;
-  menu?: Link[];
+  menu?: (Link | Text)[];
   component: "header";
   _uid: string;
   [k: string]: unknown;
@@ -87,7 +93,8 @@ export interface Header {
 
 export interface Image {
   source?: StoryblokAsset;
-  size?: "" | "small" | "medium" | "large" | "fill";
+  size?: "small" | "medium" | "large" | "fill";
+  effect?: "grunge";
   component: "image";
   _uid: string;
   [k: string]: unknown;
@@ -96,8 +103,9 @@ export interface Image {
 export interface Link {
   label?: string;
   href?: Exclude<StoryblokMultilink, {linktype?: "email"} | {linktype?: "asset"}>;
-  asButton?: boolean;
   theme?: "primary" | "secondary" | "primary-dark" | "secondary-dark" | "dark";
+  size?: "small" | "medium" | "large";
+  asButton?: boolean;
   component: "link";
   _uid: string;
   [k: string]: unknown;
@@ -108,6 +116,8 @@ export interface News {
   description?: string;
   image?: StoryblokAsset;
   body?: (Alias | Cover | Footer | Grid | Header | Section)[];
+  header?: ISbStoryData<Header> | string;
+  footer?: ISbStoryData<Footer> | string;
   component: "news";
   _uid: string;
   [k: string]: unknown;
