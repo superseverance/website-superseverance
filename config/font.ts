@@ -1,13 +1,13 @@
-import { Roboto, Roboto_Slab } from "next/font/google";
+import { Outfit, Metal_Mania } from "next/font/google";
 
-export const fontSans = Roboto({
+export const fontSans = Outfit({
   variable: "--font-sans",
-  weight: ["100", "300", "400", "500", "700", "900"],
+  weight: ["200", "300", "400", "500", "700", "800", "900"],
   subsets: ["latin"],
 });
 
-export const fontSerif = Roboto_Slab({
+export const fontSerif = Metal_Mania({
   variable: "--font-serif",
-  weight: ["100", "300", "400", "500", "700", "900"],
+  weight: ["400"],
   subsets: ["latin"],
 });

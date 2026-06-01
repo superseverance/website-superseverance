@@ -1,62 +1,30 @@
-// TODO Customize Image in a inline text
-
+import { createElement } from "react"
 import { default as NextLink } from "next/link";
-import { Image as HeroImage } from "@heroui/react";
-import { tv } from "tailwind-variants";
-import {
-  levelVariants,
-  themeCompoundVariants,
-  themeVariants,
-  typographySlots,
-} from "@/config/variants";
-import { createElement } from "react";
-import type { Columns } from "@/sbComponentType";
+import { Image as HeroImage } from "@heroui/react"
+import { tv } from "tailwind-variants"
 
-type Tags =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "p"
-  | "ul"
-  | "ol"
-  | "li"
-  | "a"
-  | "img";
-export type Levels = "high" | "low" | undefined;
-export type Themes = Columns["theme"];
+const Tags = [
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "p",
+  "ul",
+  "ol",
+  "li",
+  "a",
+  "code",
+  "img",
+] as const;
 
-interface TypographyComponents {
-  theme?: Themes;
-  level?: Levels;
-}
 
-const defaultTypography = { level: undefined };
-
-export const Typography = ({
-  level,
-  theme,
-}: TypographyComponents = defaultTypography) => {
-  const tags: Tags[] = [
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "p",
-    "ul",
-    "ol",
-    "li",
-    "a",
-    "img",
-  ];
+export function Typography() {
   const _classes = classes();
   return Object.fromEntries(
-    tags.map((tag) => {
-      const className = _classes[tag]({ level, theme });
+    Tags.map((tag) => {
+      const className = _classes[tag]();
       if (tag === "a") {
         const link = ({
           children,
@@ -77,6 +45,12 @@ export const Typography = ({
         );
         return [tag, img];
       }
+      if (tag === "code") {
+        const code = ({ children }: { href: string; children: string }) => (
+          <i className={`icon-${children}`} />
+        );
+        return [tag, code]
+      }
 
       return [
         tag,
@@ -85,13 +59,23 @@ export const Typography = ({
       ];
     })
   );
-};
+}
 
 const classes = tv({
-  slots: typographySlots,
-  variants: {
-    level: levelVariants,
-    theme: themeVariants,
+  slots: {
+    h1: "font-serif text-6xl",
+    h2: "font-serif text-5xl",
+    h3: "font-serif text-4xl",
+    h4: "font-serif text-3xl",
+    h5: "font-serif text-2xl",
+    h6: "font-serif text-xl",
+    p: "",
+    ul: "",
+    ol: "",
+    li: "",
+    a: "text-bold ",
+    code: "",
+    img: "",
   },
-  compoundVariants: [...themeCompoundVariants],
-});
+  variants: {}
+})

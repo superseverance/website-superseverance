@@ -1,12 +1,8 @@
-import type { Header } from "@/sbComponentType";
+import type { Header as HeaderType } from "@/sbComponentType"
 import { useState, Fragment } from "react";
-import {
-  SbBlokData,
-  storyblokEditable,
-  StoryblokComponent,
-} from "@storyblok/react";
-import { useRouter } from "next/router";
-
+import { default as NextLink } from "next/link"
+import { default as NextImage } from "next/image"
+import { tv } from "tailwind-variants";
 import {
   Navbar as HeroNavbar,
   NavbarContent as HeroNavbarContent,
@@ -14,63 +10,65 @@ import {
   NavbarMenu as HeroNavbarMenu,
   NavbarMenuItem as HeroNavbarMenuItem,
   NavbarMenuToggle as HeroNavbarMenuToggle,
-  Link as HeroLink,
 } from "@heroui/react";
 
-import { default as NextImage } from "next/image";
-import { default as NextLink } from "next/link";
-import { Icon } from "@/components/Icon";
+import Markdown from "markdown-to-jsx/react"
+import { Icon, IconNames } from "@/components/Icon"
+
+import {
+  SbBlokData,
+  storyblokEditable,
+  StoryblokComponent
+} from "@storyblok/react"
 
 export interface HeaderComponent {
-  blok: Header & SbBlokData;
-  withBack: boolean;
-  parent: string;
+  blok: HeaderType & SbBlokData
 }
 
-export function Header({ blok, withBack }: HeaderComponent) {
-  const router = useRouter();
-  const backUrl = router.asPath.split("/").slice(0, -1).join("/");
+const classes = {
+  base: "px-2 xs:px-4 sm:px-6 md:px-8 md:h-16 lg:h-20 z-50 bg-foreground", //if light bg-foreground/70
+  wrapper: "px-0 max-w-5xl lg:max-w-7xl",
+  item: "hidden sm:list-item",
+  toggle: "text-white",
+  menu: "items-end justify-center gap-12 py-8 bg-foreground/80", //if light bg-foreground/70
+  menuItem: "text-white", //if light text-background
+}
+
+export function Header({ blok }: HeaderComponent) {
+  const { logo, menu } = blok
   const [isOpen, setOpen] = useState(false);
 
-  const classes = {
-    base: "px-2 xs:px-4 sm:px-6 md:px-8 md:h-16 lg:h-20 z-50", //if light bg-foreground/70
-    wrapper: "px-0 max-w-5xl lg:max-w-7xl",
-    item: "hidden sm:list-item",
-    menu: "items-end gap-6 py-8", //if light bg-foreground/70
-    menuItem: "text-foreground", //if light text-background
-  };
+
+  const options = {
+    wrapper: null,
+    overrides: Typography()
+  }
 
   return (
     <Fragment>
       <HeroNavbar
         classNames={classes}
-        height={"3rem"}
         isBlurred
         shouldHideOnScroll
         {...storyblokEditable(blok)}
         onMenuOpenChange={setOpen}
       >
-        {blok.image?.filename && (
+        {logo?.filename && (
           <NextLink href="/">
             <NextImage
               className="h-12 w-auto max-h-8 md:max-h-10 lg:max-h-12 "
-              src={blok.image.filename}
-              alt={blok.image.alt || ""}
-              width={128}
+              src={logo.filename}
+              alt={logo.alt || ""}
+              width={256}
               height={64}
             />
           </NextLink>
         )}
+
         <HeroNavbarContent justify="end">
-          {withBack && (
-            <HeroLink href={backUrl} className="text-inherit mr-4">
-              <Icon name="arrow" classes="h-7 w-7" />
-              <span className="hidden sm:inline">Indietro</span>
-            </HeroLink>
-          )}
-          {blok.links?.map((child) => (
+          {menu?.map((child) => (
             <HeroNavbarItem key={child._uid}>
-              <StoryblokComponent blok={child} parent={blok.component} />
+              {child.component === "text" ? <Markdown options={options}>{child.content}</Markdown> : <StoryblokComponent blok={child} />}
             </HeroNavbarItem>
           ))}
           <HeroNavbarMenuToggle
@@ -79,13 +77,42 @@ export function Header({ blok, withBack }: HeaderComponent) {
           />
         </HeroNavbarContent>
         <HeroNavbarMenu>
-          {blok.links?.map((child) => (
+          {menu?.map((child) => (
             <HeroNavbarMenuItem key={child._uid}>
-              <StoryblokComponent blok={child} parent={blok.component} />
+              {child.component === "text" ? <Markdown options={options}>{child.content}</Markdown> : <StoryblokComponent blok={child} />}
             </HeroNavbarMenuItem>
           ))}
         </HeroNavbarMenu>
+
       </HeroNavbar>
     </Fragment>
-  );
+  )
 }
+
+function Typography() {
+  const { img, icon } = styles()
+  return ({
+    p: {
+      component: ({ children }: { children: string }) => (
+        <div className="inline-flex gap-4">{children}</div>
+      )
+    },
+    img: {
+      component: ({ src, alt }: { src: string, alt: string; }) => (
+        <img src={src} alt={alt} className={img()} />
+      )
+    },
+    code: {
+      component: ({ children }: { children: IconNames }) => (
+        <Icon name={children} classes={icon()} />
+      ),
+    },
+  })
+}
+
+const styles = tv({
+  slots: {
+    img: "",
+    icon: "fill-white h-4 w-4"
+  }
+})

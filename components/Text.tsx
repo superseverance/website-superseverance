@@ -1,76 +1,32 @@
-import type { Text } from "@/sbComponentType";
-import Markdown from "markdown-to-jsx";
-import { SbBlokData, storyblokEditable } from "@storyblok/react";
-import { tv } from "tailwind-variants";
+import type { Text as TextType } from "@/sbComponentType"
+import { tv } from "tailwind-variants"
+import Markdown from "markdown-to-jsx/react"
+import { Typography } from "./Typography"
+
 import {
-  justifyVariants,
-  levelVariants,
-  typographySlots,
-  widthVariants,
-  wrapperSlot,
-} from "@/config/variants";
-import { Typography } from "@/components/Typography";
+  SbBlokData,
+  storyblokEditable,
+} from "@storyblok/react"
 
 export interface TextComponent {
-  blok: Text & SbBlokData;
-  theme?: "primary" | "secondary";
-  parent?: string;
+  blok: TextType & SbBlokData
 }
 
-export function Text({ blok, theme, parent }: TextComponent) {
-  const { width, justify, level } = blok;
-  const { wrapper } = classes();
+export function Text({ blok }: TextComponent) {
+  const { content } = blok
+  const { text } = classes()
+  const overrides = Typography()
 
   return (
-    <div
-      className={wrapper({
-        level,
-        width,
-        justify,
-        isColumn: parent === "columns",
-      })}
-      dir={blok.justify === "right" ? "rtl" : ""}
-      {...storyblokEditable(blok)}
-    >
-      {blok.headline && (
-        <Markdown
-          options={{
-            wrapper: null,
-            forceBlock: true,
-            overrides: Typography({ level, theme }),
-          }}
-        >
-          {blok.headline}
-        </Markdown>
-      )}
-      {blok.content && (
-        <Markdown
-          options={{
-            wrapper: null,
-            forceBlock: true,
-            overrides: Typography({ level, theme }),
-          }}
-        >
-          {blok.content}
-        </Markdown>
-      )}
+    <div className={text()} {...storyblokEditable(blok)}>
+      <Markdown options={{ wrapper: null, overrides }}>{content}</Markdown>
     </div>
-  );
+  )
 }
 
 const classes = tv({
   slots: {
-    ...typographySlots,
-    wrapper: `${wrapperSlot.base} ${wrapperSlot.level}`,
+    text: "",
   },
-  variants: {
-    isColumn: {
-      true: {
-        wrapper: wrapperSlot.column,
-      },
-    },
-    width: widthVariants,
-    justify: justifyVariants,
-    level: levelVariants,
-  },
-});
+  variants: {},
+})

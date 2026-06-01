@@ -1,19 +1,15 @@
-import type { Project, Post } from "@/sbComponentType";
+import { Fragment } from "react";
 import type { GetStaticPropsContext } from "next";
+import { relations } from "@/config/storyblok";
+import { ExitPreview } from "@/libs/ExitPreview";
+import { ListsProps } from "@/components/Lists"
 import {
   getStoryblokApi,
   ISbStoryData,
   StoryblokComponent,
   useStoryblokState,
 } from "@storyblok/react";
-import { relations } from "@/config/storyblok";
-import { Fragment } from "react";
-import { ExitPreview } from "@/libs/ExitPreview";
 
-export type ListsProps = {
-  projects?: ISbStoryData<Project>[] | null;
-  posts?: ISbStoryData<Post>[] | null;
-};
 
 export interface LayoutComponent {
   story: ISbStoryData | null;
@@ -63,28 +59,28 @@ export const getStaticProps = async ({ draftMode }: GetStaticPropsContext) => {
     }
   }
 
-  const _projects = await storyblokApi.getStories({
+  const _news = await storyblokApi.getStories({
     version,
-    content_type: "project",
-    sort_by: "created_at:desc",
+    content_type: "news",
+    sort_by: "published_at:desc",
   });
 
-  const projects = _projects.data ? _projects.data.stories : null;
+  const news = _news.data ? _news.data.stories : null;
 
-  const _posts = await storyblokApi.getStories({
+  const _events = await storyblokApi.getStories({
     version,
-    content_type: "post",
-    sort_by: "created_at:desc",
+    content_type: "event",
+    sort_by: "published_at:desc",
   });
 
-  const posts = _posts.data ? _posts.data.stories : null;
+  const events = _events.data ? _events.data.stories : null;
 
   return {
     props: {
       story,
       lists: {
-        projects,
-        posts,
+        news,
+        events,
       },
       draft: !!draftMode,
     },

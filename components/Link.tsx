@@ -1,86 +1,96 @@
-import type { Link } from "@/sbComponentType";
-import { useRouter } from "next/router";
-import { SbBlokData, storyblokEditable } from "@storyblok/react";
+import type { Link as LinkType } from "@/sbComponentType"
+import { tv } from "tailwind-variants"
+import Markdown from "markdown-to-jsx/react"
+import { Icon, IconNames } from "@/components/Icon"
+import { Link as HeroLink, Button as HeroButton } from "@heroui/react"
 
-import { Button as HeroButton, Link as HeroLink } from "@heroui/react";
-import { tv } from "tailwind-variants";
+import {
+  SbBlokData,
+  storyblokEditable,
+} from "@storyblok/react"
 
 export interface LinkComponent {
-  blok: Link & SbBlokData;
-  parent?: string;
-  theme?: "primary" | "primary-dark" | "secondary" | "secondary-dark" | "dark";
+  blok: LinkType & SbBlokData
 }
 
-export function Link({ blok, parent, theme }: LinkComponent) {
-  const { button, link } = classes();
+export function Link({ blok }: LinkComponent) {
+  const { label, href, size, theme, asButton } = blok
+  const { button, link } = classes()
 
-  let url = blok.href?.url || `/${blok.href?.cached_url}`;
+  const overrides = Typography({ size })
 
-  const router = useRouter();
-  if (blok.href?.anchor) {
-    const anchor = blok.href?.anchor?.replaceAll(" ", "-");
-    url = url === router.asPath + "/" ? `#${anchor}` : `${url}#${anchor}`;
+  if (!!asButton) {
+    return (
+      <HeroButton
+        className={button({ theme })}
+        as={HeroLink}
+        href={href?.cached_url || href?.url}
+        {...storyblokEditable(blok)}>
+        <Markdown options={{ wrapper: null, overrides }}>{label}</Markdown>
+      </HeroButton>
+    )
+  } else {
+    return (
+      <HeroLink
+        className={link({ theme })}
+        href={href?.cached_url || href?.url}
+        {...storyblokEditable(blok)}>
+        <Markdown options={{ wrapper: null, overrides }}>{label}</Markdown>
+      </HeroLink>
+    )
   }
-
-  const label = blok.label || "Collegamento";
-
-  return blok.button ? (
-    <HeroButton
-      href={url}
-      as={HeroLink}
-      variant={parent === "header" ? "bordered" : "solid"}
-      className={button({
-        slim: parent === "header",
-        theme: theme || "default",
-      })}
-      {...storyblokEditable(blok)}
-    >
-      {label}
-    </HeroButton>
-  ) : (
-    <HeroLink href={url} className={link()} {...storyblokEditable(blok)}>
-      {label}
-    </HeroLink>
-  );
 }
 
 const classes = tv({
   slots: {
-    button: "text-medium",
-    link: "text-inherit",
+    button: "bg-black text-white text-extrabold uppercase",
+    link: "text-black gap-2"
   },
   variants: {
     theme: {
-      default: {
-        button: "bg-primary-550 text-primary-50",
-        link: "text-primary-550",
-      },
-      primary: {
-        button: "bg-primary-650 text-primary-50",
-        link: "text-primary-650",
-      },
-      "primary-dark": {
-        button: "bg-primary-250 text-primary-850",
-        link: "text-primary-250",
-      },
-      secondary: {
-        button: "bg-secondary-650 text-secondary-50",
-        link: "text-secondary-650",
-      },
-      "secondary-dark": {
-        button: "bg-secondary-250 text-secondary-850",
-        link: "text-secondary-250",
-      },
-      dark: {
-        button: "bg-primary-200 text-primary-800",
-        link: "text-primary-200",
-      },
+      primary: { button: "bg-primary-900 text-white", link: "bg-primary-600" },
+      "primary-dark": { button: "bg-primary-100 text-white", link: "bg-primary-400" },
+      secondary: { button: "bg-secondary-900 text-white", link: "bg-secondary-600" },
+      "secondary-dark": { button: "bg-secondary-100 text-white", link: "bg-secondary-400" },
+      dark: { button: "bg-white", link: "text-white" },
+    }
+  }
+})
+
+interface TypographyComponent { size: LinkType["size"] }
+
+function Typography({ size }: TypographyComponent) {
+  const { img, icon, paragraph } = styles()
+  return ({
+    p: {
+      component: ({ children }: { children: IconNames }) => (
+        <p className={paragraph({ sizes: size })} >{children}</p>
+      ),
     },
-    slim: {
-      true: {
-        button:
-          "px-3.5 h-9 border-1.5 bg-transparent border-primary-500 text-primary-500",
-      },
+    img: {
+      component: ({ src, alt }: { src: string, alt: string; }) => (
+        <img src={src} alt={alt} className={img()} />
+      )
     },
+    code: {
+      component: ({ children }: { children: IconNames }) => (
+        <Icon name={children} classes={icon({ sizes: size })} />
+      ),
+    },
+  })
+}
+
+const styles = tv({
+  slots: {
+    img: "",
+    icon: "fill-white h-6 w-6",
+    paragraph: "inline-flex items-center justify-center text-lg",
   },
-});
+  variants: {
+    sizes: {
+      small: { icon: "h-4 w-4", paragraph: "text-md" },
+      medium: { icon: "h-8 w-8", paragraph: "text-xl" },
+      large: { icon: "h-12 w-12", paragraph: "text-2xl" },
+    }
+  }
+})

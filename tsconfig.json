@@ -16,7 +16,7 @@
     "paths": {
       "@/*": ["./*"],
       "@/sbComponentType": [
-        "./.storyblok/types/288126534695537/storyblok-components.ts"
+        "./.storyblok/types/292167324886369/storyblok-components.ts"
       ],
       "@/sbTypes": ["./.storyblok/types/storyblok.d.ts"]
     }

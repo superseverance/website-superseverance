@@ -19,7 +19,7 @@ export default function Slug({ story, lists, draft }: LayoutComponent) {
   if (!page) return null;
   return (
     <Fragment>
-      <StoryblokComponent blok={page?.content} lists={lists} story={page} />;
+      <StoryblokComponent blok={page?.content} lists={lists} story={page} />
       <ExitPreview enable={!!draft} slug={page.slug} />
     </Fragment>
   )
@@ -27,6 +27,7 @@ export default function Slug({ story, lists, draft }: LayoutComponent) {
 
 export const getStaticProps = async ({ params, draftMode }: GetStaticPropsContext) => {
   const version = process.env.NODE_ENV === "development" ? "draft" : !!draftMode ? "draft" : "published"
+  console.log(version)
 
   const slug = Array.isArray(params?.slug) ? params.slug.join("/") : "home";
   const storyblokApi = getStoryblokApi();
@@ -43,28 +44,28 @@ export const getStaticProps = async ({ params, draftMode }: GetStaticPropsContex
     story = null
   }
 
-  const _projects = await storyblokApi.getStories({
+  const _news = await storyblokApi.getStories({
     version,
-    content_type: "project",
+    content_type: "news",
     sort_by: "created_at:desc",
   });
 
-  const projects = _projects.data ? _projects.data.stories : null;
+  const news = _news.data ? _news.data.stories : null;
 
-  const _posts = await storyblokApi.getStories({
+  const _events = await storyblokApi.getStories({
     version,
-    content_type: "post",
+    content_type: "event",
     sort_by: "created_at:desc",
   });
 
-  const posts = _posts.data ? _posts.data.stories : null;
+  const events = _events.data ? _events.data.stories : null;
 
   return {
     props: {
       story,
       lists: {
-        projects,
-        posts,
+        news,
+        events,
       },
       draft: !!draftMode,
     },
@@ -79,7 +80,7 @@ export const getStaticPaths = async () => {
     resolve_relations: relations.join(","),
   });
 
-  const layoutComponents = ["page", "project", "post"];
+  const layoutComponents = ["page"];
 
   const paths = stories.data.stories
     .filter(

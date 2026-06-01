@@ -1,102 +1,69 @@
-import type { Gallery } from "@/sbComponentType";
-import { SbBlokData, storyblokEditable } from "@storyblok/react";
-import { tv } from "tailwind-variants";
+import type { Gallery as GalleryType } from "@/sbComponentType"
 import {
-  Modal as HeroModal,
-  ModalContent as HeroModalContent,
-  Image as HeroImage,
-} from "@heroui/react";
-import { Icon } from "./Icon";
-import { wrapperSlot, widthVariants } from "@/config/variants";
-import { Fragment, useState } from "react";
+  SbBlokData,
+  storyblokEditable,
+} from "@storyblok/react"
+import { getResizedImage, getAspectRatio, getSizesImage } from "@/libs/sbImage";
+import { tv } from "tailwind-variants"
+import { Image as HeroImage } from "@heroui/react"
+import { default as NextImage } from "next/image";
 import { Swiper, SwiperSlide, SwiperProps } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 export interface GalleryComponent {
-  blok: Gallery & SbBlokData;
-}
-
-export function Gallery({ blok }: GalleryComponent) {
-  const { width, assets } = blok;
-
-  const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState<number>(0);
-
-  const { wrapper, thumb } = classes();
-
-  const handleOpen = (index: number) => {
-    setOpen(true);
-    setCurrent(index);
-  };
-
-  const options: SwiperProps = {
-    modules: [Pagination, Navigation],
-    pagination: { clickable: true },
-    navigation: {
-      enabled: true,
-    },
-    loop: true,
-    initialSlide: current,
-  };
-
-  const Carousel = () => (
-    <Swiper {...options}>
-      {assets?.map((image, index) => (
-        <SwiperSlide key={index}>
-          <HeroImage
-            src={image.filename || ""}
-            alt={image.alt || ""}
-            radius="none"
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  );
-
-  return (
-    <Fragment>
-      <div className={wrapper({ width })} {...storyblokEditable(blok)}>
-        {assets?.map((child, index) => (
-          <HeroImage
-            key={index}
-            radius="none"
-            classNames={{ wrapper: thumb() }}
-            src={child.filename || ""}
-            onClick={() => handleOpen(index)}
-          />
-        ))}
-      </div>
-      {open && (
-        <HeroModal
-          isOpen={open}
-          classNames={{ base: "bg-neutral-950/75" }}
-          onOpenChange={() => setOpen(!open)}
-          hideCloseButton
-          size="full"
-        >
-          <HeroModalContent className="justify-center">
-            <div>
-              <Carousel />
-            </div>
-            <button
-              className="absolute top-4 right-4 z-10"
-              onClick={() => setOpen(false)}
-            >
-              <Icon name="close" classes="fill-white" />
-            </button>
-          </HeroModalContent>
-        </HeroModal>
-      )}
-    </Fragment>
-  );
+  blok: GalleryType & SbBlokData
+  parent: string
 }
 
 const classes = tv({
   slots: {
-    wrapper: `${wrapperSlot.column} flex flex-wrap`,
-    thumb: "w-1/3 md:w-1/4 lg:w-1/5 h-full cursor-pointer ",
+    gallery: "w-full max-w-full!",        // ← no h-full
+    slide: "w-full",                       // ← no h-full
+    wrapper: "w-full max-w-full!",         // ← no h-full
+    image: "w-full h-full object-cover",
   },
   variants: {
-    width: widthVariants,
-  },
-});
+    height: {
+      full: { gallery: "min-h-screen!" },
+      huge: { gallery: "min-h-[75vh]!" },
+      large: { gallery: "min-h-[50vh]!" }
+    }
+  }
+})
+
+const options: SwiperProps = {
+  modules: [Pagination],
+  pagination: { clickable: true },
+  loop: true,
+};
+
+export function Gallery({ blok, parent }: GalleryComponent) {
+  const { sources, height } = blok
+  const { gallery, slide, wrapper, image } = classes()
+  const aspectRatio = getAspectRatio({ filename: sources?.[0]?.filename || null })
+
+  return (
+    <Swiper
+      style={{ aspectRatio: aspectRatio ?? undefined }}
+      className={gallery({ height })}
+      wrapperClass="w-full"
+      {...options}
+      {...storyblokEditable(blok)}
+    >
+      {sources?.map(({ id, filename, alt, focus }) =>
+        <SwiperSlide className={slide()} key={id}>
+          <HeroImage
+            {...storyblokEditable(blok)}
+            src={getResizedImage({ filename, focus })}
+            classNames={{ wrapper: wrapper(), img: image() }}
+            style={{ width: "100%" }}
+            as={NextImage}
+            alt={alt || ""}
+            radius="none"
+            fill
+          />
+        </SwiperSlide>
+      )}
+    </Swiper >
+  )
+}

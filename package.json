@@ -11,9 +11,9 @@
     "debug": "next build --debug-prerender",
     "start": "next start",
     "lint": "eslint",
-    "pull": "storyblok components pull --space 288126534695537",
-    "push": "storyblok components push --space 288126534695537",
-    "types": "storyblok types generate --space 288126534695537"
+    "pull": "storyblok components pull --space 292167324886369",
+    "push": "storyblok components push --space 292167324886369",
+    "types": "storyblok types generate --space 292167324886369"
   },
   "dependencies": {
     "@heroui/react": "^2.8.5",
