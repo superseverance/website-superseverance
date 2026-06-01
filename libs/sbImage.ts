@@ -28,18 +28,29 @@ export function getResizedImage({ filename, focus }: ResizedImage): string | und
   let resize: string | null = null;
 
   if (sizes) {
-    const width = Number(sizes.w) > 1920 ? 1920 : sizes.w;
-    const height = Number(sizes.h) > 1440 ? 1440 : sizes.h;
+    const MAX_W = 1920;
+    const MAX_H = 1440;
+    const ratio = sizes.w / sizes.h;
 
-    console.log(`origin: ${sizes.w}x${sizes.h}`)
-    console.log(`resize: ${width}x${height}`)
+    let width = sizes.w;
+    let height = sizes.h;
 
-    if (width || height) {
-      resize = `${width}x${height}`;
+    if (width > MAX_W) {
+      width = MAX_W;
+      height = Math.round(MAX_W / ratio);
     }
+
+    if (height > MAX_H) {
+      height = MAX_H;
+      width = Math.round(MAX_H * ratio);
+    }
+
+    resize = `${width}x${height}`;
+
     if (focus) {
       resize += `/filters:focal(${focus})`;
     }
   }
+
   return !!resize ? `${filename}/m/${resize}` : filename ?? undefined;
 }
