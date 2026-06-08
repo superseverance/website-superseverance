@@ -10,13 +10,6 @@ export interface PageComponent {
   lists: ListsProps;
 }
 
-const classes = tv({
-  slots: {
-    main: "min-h-screen",
-  },
-  variants: {},
-});
-
 export function Page({ blok, lists }: PageComponent) {
   const { header, footer, body, component } = blok
 
@@ -39,3 +32,10 @@ export function Page({ blok, lists }: PageComponent) {
     </ListsProvider>
   )
 }
+
+const classes = tv({
+  slots: {
+    main: "min-h-screen",
+  },
+  variants: {},
+});

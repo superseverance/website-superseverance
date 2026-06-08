@@ -7,6 +7,8 @@ import { HeroUIProvider } from "@heroui/react";
 import { fontSans, fontSerif } from "@/config/font";
 import { apiPlugin, storyblokInit } from "@storyblok/react";
 import { components } from "@/config/storyblok";
+import { useIntroSeen } from "@/libs/useIntroSeen";
+import Intro from "@/components/Intro";
 
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN || "",
@@ -16,8 +18,12 @@ storyblokInit({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { introSeen, markIntroSeen } = useIntroSeen();
+  if (introSeen === null) return null;
+
   return (
     <HeroUIProvider>
+      {!introSeen && <Intro onComplete={markIntroSeen} />}
       <Component {...pageProps} />
     </HeroUIProvider>
   );
