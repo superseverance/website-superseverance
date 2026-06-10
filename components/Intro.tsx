@@ -13,24 +13,27 @@ export default function Intro({ onComplete, loop = false }: Props) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      containerRef.current?.classList.add("opacity-0");
-      setTimeout(onComplete, 500);
-    }, 6000);
+      // containerRef.current?.classList.add("opacity-0");
+      // setTimeout(onComplete, 500);
+    }, 8000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
     <div ref={containerRef} className="fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-neutral-900 transition-opacity duration-500">
-      <div className="flex items-end animate-[intro-grow_2000ms_ease-out_forwards]">
-        <div className="relative overflow-hidden h-24 md:h-64 animate-[intro-ma-sm_1000ms_ease-out_2000ms_forwards] md:animate-[intro-ma-md_1000ms_ease-out_2000ms_forwards]">
-          <Image src="/images/ma.png" alt="" fill priority className="object-contain" />
+      <div className="relative w-1/2 aspect-video">
+        <div className="absolute z-20 top-1/2 left-1/2 w-1/2 aspect-square animate-max">
+          <div className="absolute w-[150%] aspect-[4/3] -translate-x-full animate-ma">
+            <Image src="/images/ma.png" alt="" fill priority className="object-contain" />
+          </div>
+          <div className="absolute inset-0">
+            <Image src="/images/stick.png" alt="" fill priority
+              className="absolute inset-0 animate-stick" />
+            <Image src="/images/stick.png" alt="" fill priority
+              className="absolute inset-0 -scale-x-100 animate-stick" />
+          </div>
         </div>
-        <div className="relative h-24 w-24 md:h-64 md:w-64">
-          <Image src="/images/stick.png" alt="" fill priority
-            className="absolute inset-0 animate-[intro-spin_2000ms_ease-out_forwards]" />
-          <Image src="/images/stick.png" alt="" fill priority
-            className="absolute inset-0 -scale-x-100 animate-[intro-spin_2000ms_ease-out_forwards]" />
-        </div>
+        <Image src="/images/sse.png" alt="" fill priority className="absolute inset-0 z-10 opacity-0 animate-sse" />
       </div>
     </div>
   );

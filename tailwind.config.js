@@ -8,28 +8,46 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        "intro-grow": {
-          "0%": { transform: "scale(0.5)", opacity: "0" },
-          "100%": { transform: "scale(1)", opacity: "1" },
+        "intro-max": {
+          "0%": {
+            transform: "translate(-50%, -50%) scale(10%)",
+            opacity: "0",
+          },
+          "65%": {
+            transform: "translate(-50%, -50%) scale(100%)",
+            opacity: "1",
+          },
+          "70%": {
+            transform: "translate(0%, -50%) scale(100%)",
+            opacity: "1",
+          },
+          "75%": {
+            transform: "translate(0%, -50%) scale(100%)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translate(-12%, -20%)scale(16%)",
+            opacity: "1",
+          },
         },
-        "intro-spin": {
+        "intro-stick": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(1080deg)" },
         },
-        "intro-ma-sm": {
-          "0%": { opacity: "0", width: "0px" },
-          "100%": { opacity: "1", width: "128px" },
+        "intro-ma": {
+          "0%": { transform: "translateX(-50%)", opacity: "0" },
+          "100%": { transform: "translateX(0%)", opacity: "1" },
         },
-        "intro-ma-md": {
-          "0%": { opacity: "0", width: "0px" },
-          "100%": { opacity: "1", width: "320px" },
-        },
+        "intro-sse": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        }
       },
       animation: {
-        "intro-grow": "intro-grow 2000ms ease-out forwards",
-        "intro-spin": "intro-spin 2000ms ease-out forwards",
-        "intro-ma-sm": "intro-ma-sm 1000ms ease-out 2000ms forwards",
-        "intro-ma-md": "intro-ma-md 1000ms ease-out 2000ms forwards",
+        "max": "intro-max 5000ms ease-out both",
+        "stick": "intro-stick 2000ms ease-out forwards",
+        "ma": "intro-ma 500ms ease-out 3000ms both",
+        "sse": "intro-sse 500ms ease-in 4500ms both"
       },
     },
   },
