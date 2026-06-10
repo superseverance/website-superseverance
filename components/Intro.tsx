@@ -13,8 +13,8 @@ export default function Intro({ onComplete, loop = false }: Props) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // containerRef.current?.classList.add("opacity-0");
-      // setTimeout(onComplete, 500);
+      containerRef.current?.classList.add("opacity-0");
+      setTimeout(onComplete, 500);
     }, 8000);
     return () => clearTimeout(timer);
   }, [onComplete]);
